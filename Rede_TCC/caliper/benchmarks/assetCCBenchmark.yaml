@@ -1,0 +1,68 @@
+test:
+  name: Teste Stress Local
+  description: Teste de stress
+  workers:
+    type: local
+    number: 4
+  rounds:
+    - label: Registrar - Taxa Fixa por segundo
+      description: TPS fixo - 10 TPS até 500 transações
+      txNumber: 500
+      rateControl:
+        { type: "fixed-rate", opts: { tps: 10} }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: teste
+
+    - label: Registrar - Taxa Fixa por segundo
+      description: TPS fixo - 10 TPS até 2000 transações
+      txNumber: 2000
+      rateControl:
+        { type: "fixed-rate", opts: { tps: 10} }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: teste
+
+    - label: Registrar - Taxa Fixa por segundo
+      description: TPS fixo - 50 TPS até 5000 transações
+      txNumber: 5000
+      rateControl:
+        { type: "fixed-rate", opts: { tps: 50 } }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: teste
+
+    - label: Registrar - Carga Fixa
+      description: Tenta manter 5 transações em processamento na blockchain
+      txNumber: 1000
+      rateControl:
+        { type: "fixed-load", opts: { "transactionLoad": 5, "startingTps": 5 } }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: teste
+
+    - label: Registrar - Maximo
+      description: Tenta manter o máximo de transações por segundo, até 5000 transações
+      txNumber: 5000
+      rateControl:
+        { type: "maximum-rate", opts: { "tps": 5, "step": 10, "sampleInterval": 10,"includeFailed": true} }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: teste
+
+monitors:
+  resource:
+    - module: docker
+      options:
+        interval: 4
+        containers:
+          [
+            "peer0.org1.example.com",
+            "peer0.org2.example.com",
+            "orderer.example.com",
+          ]

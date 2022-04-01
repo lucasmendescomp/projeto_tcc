@@ -1,0 +1,25 @@
+name: Caliper test
+version: "2.0.0"
+
+caliper:
+  blockchain: fabric
+  sutOptions:
+    mutualTls: true
+
+channels:
+  - channelName: mychannel
+    contracts:
+      - id: teste
+
+organizations:
+  - mspid: Org2MSP
+    identities:
+      certificates:
+        - name: "User1"
+          clientPrivateKey:
+            path: "../rede-teste/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/keystore/bd916d6a6eb49c1a05e8ff3002ca532b1142b54c7cdc023b10c5afa19422bf59_sk"
+          clientSignedCert:
+            path: "../rede-teste/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/signcerts/cert.pem"
+    connectionProfile:
+      path: "../rede-teste/organizations/peerOrganizations/org2.example.com/connection-org2.yaml"
+      discover: true

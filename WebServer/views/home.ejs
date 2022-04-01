@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <link rel = "stylesheet" href="./style.css">
+  <title> Resultados </title>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <th>CPF</th>
+      <th>Nome</th>
+      <th>Genero</th>
+      <th>Nome da Mãe</th>
+      <th>Data de Nascimento</th>
+      <th>Nome do Pai</th>
+      <th>Número CNH</th>
+      <th>Categorias CNH</th>
+      <th>Número RG</th>
+    </tr>
+  
+    <% for (var i = 0; i < result.length; i++) { %>
+      <tr>
+        <td><%= result[i].cpf %></td>
+        <td><%= result[i].nome %></td>
+        <td><%= result[i].genero %></td>
+        <td><%= result[i].nomeMae %></td>
+        <td><%= result[i].dataNasc %></td>
+        <td><%= result[i].nomePai %></td>
+        <td><%= result[i].numeroCNH %></td>
+        <td><%= result[i].categoriasCNH %></td>
+        <td><%= result[i].numeroRG %></td>
+      </tr>    
+    <% } %>
+  </table>
+</body>

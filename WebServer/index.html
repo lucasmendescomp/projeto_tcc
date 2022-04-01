@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <title> SERVIDOR ORG1 </title>
+</head>
+
+<body>
+    <header>
+      <h1>Servidor Organização 1</h1>
+    </header>
+    <form action="/query" method="POST">
+        <label>Query</label>
+        <input type ="text" id = "query_text" name= "query_text" required>
+        <br><br>
+        <button type ="submit">Pesquisar</button>
+    </form>
+<br>
+    <form action="/script_bd-ledger" method="POST">
+        <button type="submit">Teste Tempo BD + Ledger</button>
+    </form>
+    <form action="/script_bd" method="POST">
+        <button type="submit">Teste Tempo BD</button>
+    </form>
+</body>
