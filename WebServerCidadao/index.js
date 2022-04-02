@@ -4,7 +4,6 @@ const express = require ('express');
 const res = require('express/lib/response');
 const app = express ();
 const gat = require('/home/lucas/WebServerCidadao/gateway/gateway.js');
-const gatInit = require('/home/lucas/WebServerCidadao/gateway/gateway.js');
 var http = require('http');
 var path = require("path");
 let ejs = require('ejs');
@@ -24,7 +23,7 @@ const config = mariadb.createConnection({
 });
 
 // Inicializa o gateway Fabric SDK
-gatInit.gatewayInit();
+gat.gatewayInit();
 
 app.set('view engine', 'ejs');
 app.set('views', '/home/lucas/WebServerCidadao/views');

@@ -27,7 +27,7 @@ const config = mariadb.createConnection({
 gatInit.gatewayInit();
 
 app.set('view engine', 'ejs');
-app.set('views', '/home/lucas/WebServer/views');
+app.set('views', '/home/lucas/WebServer2/views');
 
 //Página inicial web
 app.get('/', function (req, res){
@@ -99,7 +99,7 @@ function bd_ledger(){
             break;
         }
         const result = config.execute(query);
-        console.log(result);
+        console.log(result.sql);
         promises.push(result);
         promises.push(gat.gatewayQuery(query));   
     } 
@@ -126,7 +126,7 @@ function bd(){
             break;
         }
         const result = config.execute(query);
-        console.log(result);
+        console.log(result.sql);
         promises.push(result);
     } 
     return Promise.all(promises);

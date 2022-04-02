@@ -4,17 +4,17 @@ const express = require ('express');
 const res = require('express/lib/response');
 const app = express ();
 const gat = require('/home/lucas/WebServer/gateway/gateway.js');
-const gatInit = require('/home/lucas/WebServer/gateway/gateway.js');
 var http = require('http');
 var path = require("path");
 let ejs = require('ejs');
 var bodyParser = require('body-parser');
-const mariadb = require('mysql2');
+const mariadb = require('mysql');
 const { json } = require('express/lib/response');
 app.use(bodyParser.urlencoded({extended:true}));
 
+app.set('view engine', 'ejs');
+app.set('views', '/home/lucas/WebServer/views');
 var query;
-
 //Configuração para conexão com o banco de dados
 const config = mariadb.createConnection({
     host: "localhost",
@@ -24,10 +24,7 @@ const config = mariadb.createConnection({
 });
 
 // Inicializa o gateway Fabric SDK
-gatInit.gatewayInit();
-
-app.set('view engine', 'ejs');
-app.set('views', '/home/lucas/WebServer/views');
+gat.gatewayInit();
 
 //Página inicial web
 app.get('/', function (req, res){
@@ -81,7 +78,7 @@ app.post('/script_bd', async function(req,res){
 
 // Roda um script que irá gerar N requisições ao banco de dados e transações no ledger da organização
 function bd_ledger(){
-    var reqs = 50;
+    var reqs = 500;
     const promises = [];
     for (var i = 0; i<reqs; i++){  
         switch (Math.floor(Math.random() * 4)){
@@ -98,8 +95,8 @@ function bd_ledger(){
                 query = "SELECT * FROM Dados_Cidadao";
             break;
         }
-        const result = config.execute(query);
-        console.log(result);
+        const result = config.query(query);
+        console.log(result.sql);
         promises.push(result);
         promises.push(gat.gatewayQuery(query));   
     } 
@@ -125,8 +122,8 @@ function bd(){
                 query = "SELECT * FROM Dados_Cidadao";
             break;
         }
-        const result = config.execute(query);
-        console.log(result);
+        const result = config.query(query);
+        console.log(result.sql);
         promises.push(result);
     } 
     return Promise.all(promises);

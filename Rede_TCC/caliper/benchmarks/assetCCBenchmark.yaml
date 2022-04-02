@@ -1,12 +1,12 @@
 test:
-  name: Teste Stress Local
-  description: Teste de stress
+  name: Teste Stress Fabric
+  description: Teste de stress da rede Hyperledger Fabric
   workers:
     type: local
-    number: 4
+    number: 5
   rounds:
-    - label: Registrar - Taxa Fixa por segundo
-      description: TPS fixo - 10 TPS até 500 transações
+    - label: Criar transação - Taxa Fixa por segundo
+      description: Taxa de transações por segundo fixa - 10 TPS até completarem 500 transações
       txNumber: 500
       rateControl:
         { type: "fixed-rate", opts: { tps: 10} }
@@ -15,18 +15,8 @@ test:
         arguments:
           contractId: teste
 
-    - label: Registrar - Taxa Fixa por segundo
-      description: TPS fixo - 10 TPS até 2000 transações
-      txNumber: 2000
-      rateControl:
-        { type: "fixed-rate", opts: { tps: 10} }
-      workload:
-        module: workload/createAsset.js
-        arguments:
-          contractId: teste
-
-    - label: Registrar - Taxa Fixa por segundo
-      description: TPS fixo - 50 TPS até 5000 transações
+    - label: Criar transação - Taxa Fixa por segundo
+      description: Taxa de transações por segundo fixa - 10 TPS até completarem 5000 transações
       txNumber: 5000
       rateControl:
         { type: "fixed-rate", opts: { tps: 50 } }
@@ -35,8 +25,8 @@ test:
         arguments:
           contractId: teste
 
-    - label: Registrar - Carga Fixa
-      description: Tenta manter 5 transações em processamento na blockchain
+    - label: Criar transação - Carga Fixa - 5 transações em processamento pela rede
+      description: Tenta manter 5 transações em processamento na blockchain até completarem 1000 transações
       txNumber: 1000
       rateControl:
         { type: "fixed-load", opts: { "transactionLoad": 5, "startingTps": 5 } }
@@ -45,7 +35,7 @@ test:
         arguments:
           contractId: teste
 
-    - label: Registrar - Maximo
+    - label: Criar transação - Manter máximo de transações por segundo
       description: Tenta manter o máximo de transações por segundo, até 5000 transações
       txNumber: 5000
       rateControl:

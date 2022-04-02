@@ -17,7 +17,7 @@ organizations:
       certificates:
         - name: "User1"
           clientPrivateKey:
-            path: "../rede-teste/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/333ba2491fc378774e311c221716ecc3d8d17e101f427b5c5dadc14ea387ec28_sk"
+            path: "../rede-teste/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/f2a4af7165e6bef5edf0ca31bf793d33eda1bbc8f749fff61cd8dbe77789bd87_sk"
           clientSignedCert:
             path: "../rede-teste/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/cert.pem"
     connectionProfile:

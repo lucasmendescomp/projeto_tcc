@@ -32,16 +32,13 @@ class MyWorkload extends WorkloadModuleBase {
             contractId: this.roundArguments.contractId,
             contractFunction: 'CreateAsset',
             invokerIdentity: 'User1',
-            contractArguments: [assetID, query],
+            contractArguments: [assetID, query, new Date],
             readOnly: false
         };
 
         const result = await this.sutAdapter.sendRequests(request);
         let shortID = result.GetID().substring(8);
-        /*
-        let executionTime = result.GetTimeFinal() - result.GetTimeCreate();
-        console.log(`TX [${shortID}] took ${executionTime}ms to execute. Result: ${result.GetStatus()}`);
-        */
+
     }
 
 }

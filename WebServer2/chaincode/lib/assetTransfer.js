@@ -17,11 +17,13 @@ class AssetTransfer extends Contract {
                 ID: 'asset1',
                 Query: 'select',
                 Owner: 'teste inicial',
+                Date: 0
             },
             {
                 ID: 'asset2',
                 Query: 'update',
                 Owner: 'teste inicial',
+                Date: 0
             },
 
         ];
@@ -34,12 +36,13 @@ class AssetTransfer extends Contract {
     }
 
     // CreateAsset issues a new asset to the world state with given details.
-    async CreateAsset(ctx, id, query) {
+    async CreateAsset(ctx, id, query, date) {
 
         const asset = {
             ID: id,
             Query: query,
-            Owner: ctx.clientIdentity.getMSPID()
+            Owner: ctx.clientIdentity.getMSPID(),
+            Date: date
         };
         await ctx.stub.putState(id, Buffer.from(JSON.stringify(asset)));
         return JSON.stringify(asset);
