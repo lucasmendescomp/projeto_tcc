@@ -1,0 +1,58 @@
+test:
+  name: Teste Stress Fabric
+  description: Teste de stress da rede Hyperledger Fabric
+  workers:
+    type: local
+    number: 5
+  rounds:
+    - label: Criar transação - Taxa Fixa por segundo
+      description: Taxa de transações por segundo fixa - 10 TPS até completarem 500 transações
+      txNumber: 500
+      rateControl:
+        { type: "fixed-rate", opts: { tps: 10} }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: teste
+
+    - label: Criar transação - Taxa Fixa por segundo
+      description: Taxa de transações por segundo fixa - 10 TPS até completarem 5000 transações
+      txNumber: 5000
+      rateControl:
+        { type: "fixed-rate", opts: { tps: 50 } }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: teste
+
+    - label: Criar transação - Carga Fixa - 5 transações em processamento pela rede
+      description: Tenta manter 5 transações em processamento na blockchain até completarem 1000 transações
+      txNumber: 1000
+      rateControl:
+        { type: "fixed-load", opts: { "transactionLoad": 5, "startingTps": 5 } }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: teste
+
+    - label: Criar transação - Manter máximo de transações por segundo
+      description: Tenta manter o máximo de transações por segundo, até 5000 transações
+      txNumber: 5000
+      rateControl:
+        { type: "maximum-rate", opts: { "tps": 5, "step": 10, "sampleInterval": 10,"includeFailed": true} }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: teste
+
+monitors:
+  resource:
+    - module: docker
+      options:
+        interval: 4
+        containers:
+          [
+            "peer0.org1.example.com",
+            "peer0.org2.example.com",
+            "orderer.example.com",
+          ]
